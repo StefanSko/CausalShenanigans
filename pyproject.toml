@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "causalshenanigans"
+version = "0.1.0"
+description = ""
+authors = ["StefanSko <Stefan.sko@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+jax = "0.4.36"
+jaxlib = "0.4.36"
+equinox = "0.11.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
