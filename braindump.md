@@ -1,0 +1,6 @@
+- include a more realistic scenario where u and v are not completely independent
+- reserach searching vs. matching vs. ranking
+- what about re-ranking?
+- what about learning to rank?
+- how can all of this be formalized in a DAG?
+- 
