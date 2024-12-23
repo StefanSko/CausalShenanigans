@@ -22,7 +22,7 @@ true_match_probs = sigmoid(true_match_logits)
 true_matches = np.random.binomial(n=1, p=true_match_probs)
 
 # Selection mechanism based on feature combination
-S = np.where(0.5 * u + 0.5 * v > 0.5, 1, 0)  # Item is shown if combination exceeds threshold
+S = np.where(0.75 * u + 0.25 * v > 0.5, 1, 0)  # Item is shown if combination exceeds threshold
 
 # Calculate correlations in full dataset vs selected dataset
 corr_full = stats.pearsonr(v, true_match_probs)
