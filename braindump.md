@@ -19,3 +19,11 @@ Story to tell
 - they put forward thi new matching and AB test the conversion rate of this newly improved location centric approach
 - counterintuitively the conversion rate is lower than the original approach
 - what has happened?
+
+
+TODO:
+- what is the business model of the platform?
+- add simulated metrics from dashboard?
+- add plot for user survey
+- think about how to embed the simulated data into the storyline
+  - a meta level?
