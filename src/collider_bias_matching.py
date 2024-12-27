@@ -92,3 +92,17 @@ print(f"Estimated num. matches (original): {np.sum(true_matches):.3f}")
 print(f"Estimated num. matches (intervention): {np.sum(adjusted_matches):.3f}")
 print(f"Feature diversity (original): {diversity_original:.3f}")
 print(f"Feature diversity (intervention): {diversity_intervention:.3f}")
+
+#Simulate many experiments to show the effect of the intervention
+n_experiments = 5000
+
+treatment = np.random.binomial(n=n_experiments, p=true_match_probs[S==1])
+control = np.random.binomial(n=n_experiments, p=true_match_probs[S_intervention==1])
+
+#Plot histogram of the difference in matches between the treatment and control groups
+plt.hist(treatment - control, bins=100)
+plt.xlabel('Difference in Matches')
+plt.ylabel('Frequency')
+plt.title('Histogram of Difference in Matches between Treatment and Control Groups')
+plt.show()
+
