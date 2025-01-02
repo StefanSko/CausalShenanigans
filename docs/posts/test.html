@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploratory Data Analysis</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="post-body">
+    <nav class="back-nav">
+        <a href="../index.html">← Back to Blog</a>
+    </nav>
+
+    <article class="notebook-content">
+        <!-- This is an example of how the Jupyter notebook content will look -->
+        <header class="post-header">
+            <h1>Exploratory Data Analysis</h1>
+            <div class="post-meta">
+                <time>January 2, 2025</time>
+            </div>
+        </header>
+
+        <!-- Example of a markdown cell -->
+        <div class="jp-Cell jp-MarkdownCell">
+            <div class="content">
+                <h2>Introduction</h2>
+                <p>In this analysis, we'll explore a dataset using pandas and create visualizations with matplotlib...</p>
+            </div>
+        </div>
+
+        <!-- Example of a code cell -->
+        <div class="jp-Cell jp-CodeCell">
+            <div class="jp-Cell-inputWrapper">
+                <div class="jp-InputPrompt">In [1]:</div>
+                <div class="jp-Input">
+                    <pre>import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('data.csv')
+df.head()</pre>
+                </div>
+            </div>
+            <div class="jp-Cell-outputWrapper">
+                <div class="jp-OutputPrompt">Out[1]:</div>
+                <div class="jp-Output">
+                    <table class="dataframe">
+                        <thead>
+                            <tr>
+                                <th>Column A</th>
+                                <th>Column B</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.234</td>
+                                <td>5.678</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <footer>
+        <p>© 2025 Causal Shenanigans</p>
+    </footer>
+</body>
+</html>

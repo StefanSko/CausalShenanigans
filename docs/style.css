@@ -1,0 +1,239 @@
+/* Base styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #f9f9fa;
+    color: #212529;
+}
+
+/* Header styles */
+header {
+    margin-bottom: 2rem;
+    text-align: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Post list styles */
+.post-list {
+    list-style: none;
+    padding: 0;
+}
+
+.post-item {
+    background: white;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.post-title {
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.post-title:hover {
+    text-decoration: underline;
+}
+
+.post-excerpt {
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* Notebook post styles */
+.post-body {
+    background-color: #f8f9fa;
+}
+
+.back-nav {
+    margin-bottom: 2rem;
+}
+
+.back-nav a {
+    color: #666;
+    text-decoration: none;
+}
+
+.back-nav a:hover {
+    color: #2c3e50;
+}
+
+.notebook-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.post-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.post-meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* Jupyter notebook specific styles */
+.jp-Cell {
+    margin: 1.5rem 0;
+}
+
+.jp-MarkdownCell .content {
+    margin: 1rem 0;
+}
+
+.jp-Cell-inputWrapper {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 1rem;
+    border-left: 3px solid #3772ff;
+    margin: 1rem 0;
+}
+
+.jp-InputPrompt, .jp-OutputPrompt {
+    color: #666;
+    font-family: monospace;
+    margin-right: 1rem;
+    user-select: none;
+}
+
+.jp-Input pre {
+    margin: 0;
+    font-family: 'SF Mono', Consolas, Monaco, 'Andale Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.jp-Cell-outputWrapper {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+/* Table styles */
+.dataframe {
+    border-collapse: collapse;
+    margin: 1rem 0;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.dataframe th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+}
+
+.dataframe td {
+    padding: 0.75rem;
+    border: 1px solid #dee2e6;
+}
+
+.dataframe tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Code syntax highlighting */
+.highlight {
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.highlight pre {
+    margin: 0;
+    overflow-x: auto;
+}
+
+/* Images and plots */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+.jp-OutputArea-output img {
+    background: white;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid #eee;
+    color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .notebook-content {
+        padding: 1rem;
+    }
+
+    .jp-Cell-inputWrapper {
+        padding: 0.75rem;
+    }
+
+    .dataframe {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .back-nav {
+        display: none;
+    }
+
+    .notebook-content {
+        box-shadow: none;
+    }
+}
