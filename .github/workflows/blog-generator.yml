@@ -1,6 +1,12 @@
 name: Generate Blog Posts and Deploy
 
 on:
+  workflow_dispatch:  # Enables manual triggering
+    inputs:
+      notebook_path:
+        description: 'Path to specific notebook (optional)'
+        required: false
+        type: string
   push:
     paths:
       - 'notebooks/*.ipynb'
