@@ -9,7 +9,7 @@ on:
         type: string
   push:
     paths:
-      - 'notebooks/*.ipynb'
+      - 'final/*.ipynb'
     branches:
       - main
 
@@ -46,7 +46,7 @@ jobs:
     - name: Get changed files
       id: changed-files
       run: |
-        echo "files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^notebooks/.*\.ipynb$' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+        echo "files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^final/.*\.ipynb$' | tr '\n' ' ')" >> $GITHUB_OUTPUT
 
     - name: Convert notebooks to blog posts
       run: |
