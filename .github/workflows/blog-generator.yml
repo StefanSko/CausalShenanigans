@@ -1,26 +1,37 @@
-name: Generate Blog Posts
+name: Generate Blog Posts and Deploy
 
 on:
   push:
     paths:
-      - 'final/*.ipynb'  # Trigger on notebook changes in notebooks directory
+      - 'notebooks/*.ipynb'
     branches:
       - main
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   convert-notebook:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0  # Fetch all history for git operations
-    
+        fetch-depth: 0
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -29,11 +40,10 @@ jobs:
     - name: Get changed files
       id: changed-files
       run: |
-        echo "files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^final/.*\.ipynb$' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+        echo "files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^notebooks/.*\.ipynb$' | tr '\n' ' ')" >> $GITHUB_OUTPUT
 
     - name: Convert notebooks to blog posts
       run: |
-        # For each changed notebook
         for notebook in ${{ steps.changed-files.outputs.files }}; do
           echo "Processing $notebook"
           python blog_generator.py "$notebook"
@@ -41,10 +51,9 @@ jobs:
 
     - name: Commit and push if changes
       run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        # Check if there are any changes to commit
         if git diff --quiet docs/; then
           echo "No changes to commit"
           exit 0
@@ -52,4 +61,28 @@ jobs:
         
         git add docs/
         git commit -m "Update blog with new notebook conversions"
-        git push
+        git push origin HEAD:${{ github.ref }}
+
+  # Deploy to GitHub Pages
+  deploy:
+    needs: convert-notebook
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
