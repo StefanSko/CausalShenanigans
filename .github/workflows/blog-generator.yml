@@ -46,7 +46,13 @@ jobs:
     - name: Get changed files
       id: changed-files
       run: |
-        echo "files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^final/.*\.ipynb$' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ -n "${{ inputs.notebook_path }}" ]; then
+          # If manually triggered with a specific notebook
+          echo "files=${{ inputs.notebook_path }}" >> $GITHUB_OUTPUT
+        else
+          # Get both new and modified files
+          echo "files=$(git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }} | grep '^final/.*\.ipynb$' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+        fi
 
     - name: Convert notebooks to blog posts
       run: |

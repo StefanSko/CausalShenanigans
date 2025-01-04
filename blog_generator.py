@@ -17,6 +17,13 @@ class BlogPostGenerator:
         os.makedirs(self.posts_path, exist_ok=True)
         os.makedirs(self.templates_path, exist_ok=True)
 
+    def _find_existing_post(self, slug):
+        """Find an existing post with the given slug."""
+        for filename in os.listdir(self.posts_path):
+            if filename.endswith(f'-{slug}.html'):
+                return os.path.join(self.posts_path, filename)
+        return None
+
     def process_notebook(self, notebook_path, title=None, date=None):
         """Convert a Jupyter notebook to a blog post."""
         # Read the notebook
@@ -33,6 +40,15 @@ class BlogPostGenerator:
 
         # Generate slug from title
         slug = self._generate_slug(title)
+
+        # Check for existing post
+        existing_post = self._find_existing_post(slug)
+        if existing_post:
+            # Extract date from existing post filename
+            existing_date = os.path.basename(existing_post).split('-')[0]
+            date = existing_date  # Preserve the original date
+            os.remove(existing_post)  # Remove the old post
+            print(f"Replacing existing post from {date}")
 
         # Convert notebook to HTML
         html_exporter = HTMLExporter()
@@ -53,8 +69,8 @@ class BlogPostGenerator:
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(post_html)
 
-        # Update index page
-        self._update_index(title, date, slug)
+        # Update index page with replacement
+        self._update_index(title, date, slug, is_replacement=True)
 
         print(f"Created blog post: {output_path}")
 
@@ -78,13 +94,19 @@ class BlogPostGenerator:
         slug = slug.strip('-')
         return slug
 
-    def _update_index(self, title, date, slug):
+    def _update_index(self, title, date, slug, is_replacement=False):
         """Update the index.html file with the new post."""
         index_path = os.path.join(self.docs_path, 'index.html')
 
-        # Read current index file
         with open(index_path, 'r', encoding='utf-8') as f:
             soup = BeautifulSoup(f.read(), 'html.parser')
+
+        # If replacing, remove the old entry first
+        if is_replacement:
+            post_list = soup.find('ul', class_='post-list')
+            existing_link = post_list.find('a', href=f"posts/{date}-{slug}.html")
+            if existing_link:
+                existing_link.find_parent('li').decompose()
 
         # Create new post entry
         post_list = soup.find('ul', class_='post-list')
