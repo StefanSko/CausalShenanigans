@@ -43,11 +43,13 @@ class BlogPostGenerator:
 
         # Check for existing post
         existing_post = self._find_existing_post(slug)
+        is_replacement = False
         if existing_post:
             # Extract date from existing post filename
             existing_date = os.path.basename(existing_post).split('-')[0]
             date = existing_date  # Preserve the original date
             os.remove(existing_post)  # Remove the old post
+            is_replacement = True
             print(f"Replacing existing post from {date}")
 
         # Convert notebook to HTML
@@ -69,8 +71,8 @@ class BlogPostGenerator:
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(post_html)
 
-        # Update index page with replacement
-        self._update_index(title, date, slug, is_replacement=True)
+        # Update index page with correct replacement flag
+        self._update_index(title, date, slug, is_replacement=is_replacement)
 
         print(f"Created blog post: {output_path}")
 
