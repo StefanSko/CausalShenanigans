@@ -1,12 +1,9 @@
 import os
 import re
-import json
 from datetime import datetime
 from bs4 import BeautifulSoup
 import nbformat
 from nbconvert import HTMLExporter
-from nbconvert.preprocessors import Preprocessor
-import shutil
 
 
 class BlogPostGenerator:
@@ -117,23 +114,6 @@ class BlogPostGenerator:
             f.write(str(soup.prettify()))
 
 
-def setup_blog(repo_path="."):
-    """Initialize a new blog in the specified repository."""
-    blog = BlogPostGenerator(repo_path)
-
-    # Create template files if they don't exist
-    if not os.path.exists(os.path.join(blog.templates_path, 'post_template.html')):
-        shutil.copy('templates/post_template.html', blog.templates_path)
-
-    if not os.path.exists(os.path.join(blog.docs_path, 'style.css')):
-        shutil.copy('templates/style.css', blog.docs_path)
-
-    if not os.path.exists(os.path.join(blog.docs_path, 'index.html')):
-        shutil.copy('templates/index.html', blog.docs_path)
-
-    print("Blog setup complete!")
-    return blog
-
 
 if __name__ == "__main__":
     import argparse
@@ -142,14 +122,11 @@ if __name__ == "__main__":
     parser.add_argument('notebook', help='Path to the Jupyter notebook')
     parser.add_argument('--title', help='Blog post title (optional)')
     parser.add_argument('--date', help='Blog post date (YYYY-MM-DD)')
-    parser.add_argument('--setup', action='store_true', help='Setup new blog')
 
     args = parser.parse_args()
 
-    if args.setup:
-        blog = setup_blog()
-    else:
-        blog = BlogPostGenerator()
+
+    blog = BlogPostGenerator()
 
     if args.notebook:
         blog.process_notebook(args.notebook, args.title, args.date)
